@@ -1,0 +1,24 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 16px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  animation: rotate 1s linear infinite;
+  fill: var(--color-primary, #007bff); /* fallback color */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
