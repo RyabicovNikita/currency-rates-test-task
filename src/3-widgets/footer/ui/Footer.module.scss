@@ -1,0 +1,32 @@
+.footer {
+  width: 100%;
+  height: 64px;
+  position: fixed;
+  bottom: 0;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.mobileNav {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.desktopInfo {
+  display: none;
+  font-size: 14px;
+  color: #555;
+}
+
+@media (min-width: 768px) {
+  .mobileNav {
+    display: none;
+  }
+
+  .desktopInfo {
+    display: block;
+  }
+}
