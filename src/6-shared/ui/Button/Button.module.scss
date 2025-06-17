@@ -1,0 +1,27 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.default {
+  background-color: var(--color-default);
+  color: #212529;
+}
