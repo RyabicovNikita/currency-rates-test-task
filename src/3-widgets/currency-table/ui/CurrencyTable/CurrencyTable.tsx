@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Big from 'big.js';
 
 import { useAppDispatch, useAppSelector } from '@process/hooks';
@@ -8,6 +8,7 @@ import {
   selectIsLoading,
   selectRatesCodes,
 } from '@process/selectors/currencySelectors';
+import { selectCurrencyPage, selectCurrencyPageSize } from '@process/selectors/paginationSelectors';
 import { currencyModel, CurrencyRow } from '@entities/currency';
 import { Loader } from '@shared/ui';
 
@@ -19,8 +20,16 @@ export const CurrencyTable = () => {
   const ratesCodes = useAppSelector(selectRatesCodes);
   const isLoading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectError);
+  const page = useAppSelector(selectCurrencyPage);
+  const pageSize = useAppSelector(selectCurrencyPageSize);
 
-  const data = ratesCodes.map((code) => ({ code, value: Big(rates[code]).round(18) }));
+  const visibleData = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    return ratesCodes
+      .slice(start, end)
+      .map((code) => ({ code, value: Big(rates[code]).round(18) }));
+  }, [page, pageSize, ratesCodes, rates]);
 
   useEffect(() => {
     dispatch(currencyModel.loadRates());
@@ -39,7 +48,7 @@ export const CurrencyTable = () => {
 
   return (
     <div className={styles.wrapper}>
-      {data.map(({ code, value }) => (
+      {visibleData.map(({ code, value }) => (
         <CurrencyRow code={code} key={code} value={value} />
       ))}
     </div>

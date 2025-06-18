@@ -2,7 +2,7 @@ import { ConverterIcon, RatesIcon } from '@assets/icons';
 
 import { useAppSelector } from '@process/hooks';
 import { NavItem } from '@features/navigation/ui';
-import { AuthRequired } from '@shared/ui/AuthRequired';
+import { AuthRequired } from '@shared/ui';
 
 import styles from './Footer.module.scss';
 
