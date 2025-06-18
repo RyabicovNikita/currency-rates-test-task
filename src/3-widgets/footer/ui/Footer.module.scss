@@ -6,7 +6,12 @@
   background-color: #f9f9f9;
   border-top: 1px solid #ddd;
   padding: 8px 0;
-  text-align: center;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .mobileNav {
@@ -24,6 +29,10 @@
 @media (min-width: 768px) {
   .mobileNav {
     display: none;
+  }
+
+  .footer__container {
+    justify-content: center;
   }
 
   .desktopInfo {
