@@ -2,7 +2,7 @@ import type { Middleware } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
 import { logout, setAuthData } from '@entities/user/model';
-import { AUTH_DATA } from '@shared/constants';
+import { AUTH_DATA, PAGINATION_PAGE, PAGINATION_PAGE_SIZE } from '@shared/constants';
 
 export const authMiddleware: Middleware = (_) => (next) => (action) => {
   if (setAuthData.match(action)) {
@@ -11,6 +11,8 @@ export const authMiddleware: Middleware = (_) => (next) => (action) => {
 
   if (logout.match(action)) {
     Cookies.remove(AUTH_DATA);
+    localStorage.removeItem(PAGINATION_PAGE);
+    localStorage.removeItem(PAGINATION_PAGE_SIZE);
   }
 
   return next(action);
