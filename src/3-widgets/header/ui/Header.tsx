@@ -4,8 +4,7 @@ import { useAppDispatch, useAppSelector } from '@process/hooks';
 import { NavItem } from '@features/navigation/ui';
 import { currencyModel } from '@entities/currency';
 import { logout } from '@entities/user/model';
-import { Button } from '@shared/ui';
-import { AuthRequired } from '@shared/ui/AuthRequired';
+import { AuthRequired, Button } from '@shared/ui';
 
 import styles from './Header.module.scss';
 
