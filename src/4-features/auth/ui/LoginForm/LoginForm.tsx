@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@process/hooks';
 import { login } from '@features/auth/model';
-import { Button } from '@shared/ui';
-import { InputField } from '@shared/ui/Input';
+import { Button, InputField } from '@shared/ui';
 
 import styles from './LoginForm.module.css';
 
