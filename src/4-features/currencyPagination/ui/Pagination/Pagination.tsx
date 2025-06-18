@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@process/hooks';
 import { selectRatesCodes } from '@process/selectors/currencySelectors';
 import { selectCurrencyPage, selectCurrencyPageSize } from '@process/selectors/paginationSelectors';
 import { paginationModel } from '@features/currencyPagination';
-import { PAGE_SIZES_OPTIONS } from '@features/currencyPagination/constants';
+import { PAGE_SIZES_OPTIONS } from '@shared/config';
 import { PAGINATION_PAGE, PAGINATION_PAGE_SIZE } from '@shared/constants';
 import { Select } from '@shared/ui';
 

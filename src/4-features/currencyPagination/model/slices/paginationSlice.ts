@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { PageSize } from '@features/currencyPagination/constants';
+import type { PageSize } from '@shared/config';
 import { PAGINATION_PAGE, PAGINATION_PAGE_SIZE } from '@shared/constants';
 
 interface PaginationState {
