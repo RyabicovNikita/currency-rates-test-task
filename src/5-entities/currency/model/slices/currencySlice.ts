@@ -1,5 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import Big from 'big.js';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { currencyModel } from '@entities/currency';
 
@@ -15,16 +14,7 @@ const initialState: CurrencyState = {
 const currencySlice = createSlice({
   name: 'currency',
   initialState,
-  reducers: {
-    sortRates(state, action: PayloadAction<'asc' | 'desc'>) {
-      const order = action.payload;
-      state.codes.sort((a, b) => {
-        const rateA = Big(state.rates[a]);
-        const rateB = Big(state.rates[b]);
-        return order === 'asc' ? rateA.cmp(rateB) : rateB.cmp(rateA);
-      });
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(currencyModel.loadRates.pending, (state) => {
@@ -43,5 +33,4 @@ const currencySlice = createSlice({
   },
 });
 
-export const { sortRates } = currencySlice.actions;
 export const currencyReducer = currencySlice.reducer;
