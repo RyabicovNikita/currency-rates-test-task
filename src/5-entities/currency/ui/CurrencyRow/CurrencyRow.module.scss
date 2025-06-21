@@ -1,0 +1,10 @@
+.row {
+  text-align: center;
+  &__rate,
+  &__value {
+    padding: 10px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

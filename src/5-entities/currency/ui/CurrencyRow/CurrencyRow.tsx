@@ -3,13 +3,13 @@ import type Big from 'big.js';
 
 import { joinClassNames } from '@shared/lib';
 
-import styles from './CurrencyRow.module.css';
+import styles from './CurrencyRow.module.scss';
 interface CurrencyRowProps {
-  code: string;
+  name: string;
   value: Big;
 }
 
-export const CurrencyRow = ({ code, value }: CurrencyRowProps) => {
+export const CurrencyRow = ({ name, value }: CurrencyRowProps) => {
   const prevValueRef = useRef<Big | null>(null);
   const [highlightRow, setHighlightRow] = useState<string>('');
   useEffect(() => {
@@ -21,16 +21,13 @@ export const CurrencyRow = ({ code, value }: CurrencyRowProps) => {
     }
     prevValueRef.current = value;
   }, [value]);
-  if (!code || !value) return null;
+  if (!name || !value) return null;
   const rowClassName = joinClassNames(styles.row, highlightRow);
 
   return (
-    <div className={rowClassName}>
-      <div className={styles.left}>
-        {/* <img src={""} alt={code} className={styles.icon} /> */}
-        <span className={styles.code}>{code}</span>
-      </div>
-      <div className={styles.value}>${value.toString()}</div>
-    </div>
+    <tr className={rowClassName}>
+      <td className={styles.row__rate}>{name}</td>
+      <td className={styles.row__value}>${value.toString()}</td>
+    </tr>
   );
 };
