@@ -1,2 +1,2 @@
-export { currencyReducer, sortRates } from './slices';
+export { currencyReducer } from './slices';
 export { loadRates } from './thunks';
