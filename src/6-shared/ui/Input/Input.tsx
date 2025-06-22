@@ -13,7 +13,7 @@ export const InputField = ({ label, id, ...rest }: Props) => {
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>
-      <input id={id} className={styles.input} {...rest} />
+      <input id={id} className={styles.input} aria-label={label} {...rest} />
     </div>
   );
 };
