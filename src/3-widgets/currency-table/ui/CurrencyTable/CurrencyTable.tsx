@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Big from 'big.js';
 
 import { useAppDispatch, useAppSelector } from '@process/hooks';
@@ -10,6 +10,7 @@ import {
 } from '@process/selectors/currencySelectors';
 import { selectCurrencyPage, selectCurrencyPageSize } from '@process/selectors/paginationSelectors';
 import { currencyModel, CurrencyRow } from '@entities/currency';
+import type { CurrencyRateProps } from '@shared/types';
 import { Loader } from '@shared/ui';
 
 import styles from './CurrencyTable.module.css';
@@ -23,6 +24,8 @@ export const CurrencyTable = () => {
   const page = useAppSelector(selectCurrencyPage);
   const pageSize = useAppSelector(selectCurrencyPageSize);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const prevValuesRef = useRef<CurrencyRateProps[]>(null);
+  const [highlightMap, setHighlightMap] = useState<Record<string, 'up' | 'down' | ''>>({});
 
   const visibleData = useMemo(() => {
     const start = (page - 1) * pageSize;
@@ -48,6 +51,24 @@ export const CurrencyTable = () => {
     return () => clearInterval(intervalId);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isLoading) return;
+    const prevValues = prevValuesRef.current;
+    visibleData.forEach(({ name, value }) => {
+      const prevValue = prevValues?.find((v) => v.name === name)?.value;
+      if (prevValue && !value.eq(prevValue)) {
+        setHighlightMap((prev) => ({
+          ...prev,
+          [name]: value.gt(prevValue) ? 'up' : 'down',
+        }));
+        setTimeout(() => {
+          setHighlightMap((prev) => ({ ...prev, [name]: '' }));
+        }, 1500);
+      }
+    });
+    prevValuesRef.current = visibleData;
+  }, [visibleData, isLoading]);
+
   const handleSort = () => {
     setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
   };
@@ -67,7 +88,12 @@ export const CurrencyTable = () => {
       </thead>
       <tbody className={styles.tbody}>
         {visibleData.map(({ name, value }) => (
-          <CurrencyRow name={name} key={name} value={value} />
+          <CurrencyRow
+            name={name}
+            key={name}
+            value={value}
+            highlightClassName={highlightMap[name] || ''}
+          />
         ))}
       </tbody>
     </table>
