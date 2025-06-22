@@ -15,9 +15,18 @@ interface SelectProps {
 export const Select = ({ label, value, onChange, options }: SelectProps) => {
   return (
     <div className={styles.wrapper}>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && (
+        <label className={styles.label} htmlFor={label}>
+          {label}
+        </label>
+      )}
       <div className={styles.selectWrapper}>
-        <select className={styles.select} value={value} onChange={(e) => onChange(e.target.value)}>
+        <select
+          className={styles.select}
+          value={value}
+          id={label}
+          onChange={(e) => onChange(e.target.value)}
+        >
           {options.map(({ value, label }) => (
             <option key={value} value={value}>
               {label}
