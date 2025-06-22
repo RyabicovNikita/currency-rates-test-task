@@ -7,7 +7,7 @@ import { InputField } from '@shared/ui/Input';
 
 import type { CurrencyConverter } from '../types';
 
-import styles from './Converter.module.css';
+import styles from './Converter.module.scss';
 
 const COMMISSION_RATE = 0.03;
 
@@ -59,32 +59,35 @@ export const Converter = ({ rates, currencies }: ConverterProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.controls}>
-        <Select
-          label="From"
-          value={fromCurrency}
-          options={selectOptions}
-          onChange={setFromCurrency}
-        />
-        <Select label="To" value={toCurrency} options={selectOptions} onChange={setToCurrency} />
-        <InputField
-          label="Amount"
-          type="text"
-          value={amount}
-          onChange={({ target }) => setAmount(target.value)}
-        />
-      </div>
+      <Select
+        label="From"
+        value={fromCurrency}
+        options={selectOptions}
+        onChange={setFromCurrency}
+      />
+      <Select label="To" value={toCurrency} options={selectOptions} onChange={setToCurrency} />
+      <InputField
+        label="Amount"
+        type="text"
+        value={amount}
+        onChange={({ target }) =>
+          setAmount((prevValue) => (/^\d*\.?\d*$/.test(target.value) ? target.value : prevValue))
+        }
+      />
 
-      <div className={styles.result}>
-        {isSameCurrency && <p className="error">Выберите разные валюты</p>}
-        {+amount <= 0 && <p className="error">Введите корректное число для конвертации</p>}
-        {conversionResult && (
-          <p>
-            {amount} {fromCurrency} {'=>'} {conversionResult.total} {toCurrency} (
-            {conversionResult.converted} {toCurrency} + {COMMISSION_RATE * 100}%)
-          </p>
-        )}
-      </div>
+      {isSameCurrency && <p className="error">Выберите разные валюты</p>}
+      {+amount <= 0 && <p className="error">Введите корректное число для конвертации</p>}
+      {conversionResult && (
+        <div>
+          {fromCurrency} : <InputField id="result" disabled={true} value={conversionResult.total} />
+        </div>
+      )}
+      {conversionResult && (
+        <p className={styles.result__text}>
+          {amount} {fromCurrency} {'=>'} {conversionResult.total} {toCurrency} (
+          {conversionResult.converted} {toCurrency} + {COMMISSION_RATE * 100}%)
+        </p>
+      )}
     </div>
   );
 };
