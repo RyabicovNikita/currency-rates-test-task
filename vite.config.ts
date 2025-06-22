@@ -21,4 +21,13 @@ export default defineConfig({
       '@shared': resolve(__dirname, 'src/6-shared'),
     },
   },
+  server: {
+    proxy: {
+      '/coingate-api': {
+        target: 'https://api.coingate.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/coingate-api/, ''),
+      },
+    },
+  },
 });
