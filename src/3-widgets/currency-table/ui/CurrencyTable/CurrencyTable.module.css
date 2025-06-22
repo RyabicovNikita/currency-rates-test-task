@@ -8,6 +8,10 @@
   }
   th {
     padding: 10px 5px;
+    cursor: pointer;
+  }
+  th:hover {
+    background-color: #e6e7e8;
   }
 }
 
